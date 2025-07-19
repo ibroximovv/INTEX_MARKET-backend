@@ -4,10 +4,14 @@ import { AppService } from './app.service';
 import { AdminModule } from './admin/admin.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductsModule } from './products/products.module';
+import { CategoryModule } from './category/category.module';
+import { OrdersModule } from './orders/orders.module';
+import { SiteModule } from './site/site.module';
+import { MulterController } from './multer/multer.controller';
 
 @Module({
-  imports: [AdminModule, PrismaModule, ProductsModule],
-  controllers: [AppController],
+  imports: [AdminModule, PrismaModule, ProductsModule, CategoryModule, OrdersModule, SiteModule, ],
+  controllers: [AppController, MulterController],
   providers: [AppService],
 })
 export class AppModule {}

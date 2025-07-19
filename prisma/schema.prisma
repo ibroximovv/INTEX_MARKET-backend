@@ -27,10 +27,11 @@ model Products {
   image           String
   price           Int
   quantity        Int
-  Frame           Frame    @relation(fields: [frameId], references: [id])
   size            String
   depth           Int
-  frameId         String
+  frame_en        String
+  frame_uz        String?
+  frame_ru        String?
   discountedPrice Int?
   createdAt       DateTime @default(now())
   Orders          Orders[]
@@ -45,23 +46,6 @@ model Category {
   createdAt DateTime   @default(now())
 }
 
-model Frame {
-  id        String     @id @default(uuid())
-  name_en   String     @unique
-  name_uz   String?    @unique
-  name_ru   String?    @unique
-  Products  Products[]
-  createdAt DateTime   @default(now())
-}
-
-model WeRecommend {
-  id        String   @id @default(uuid())
-  name_en   String   @unique
-  name_uz   String?  @unique
-  name_ru   String?  @unique
-  createdAt DateTime @default(now())
-}
-
 model Orders {
   id         String   @id @default(uuid())
   name       String
@@ -74,7 +58,7 @@ model Orders {
 }
 
 model Site {
-  id            String  @id @default(uuid())
+  id            String   @id @default(uuid())
   phone         String
   adress_en     String
   adress_uz     String?
@@ -82,5 +66,5 @@ model Site {
   workingHours  String
   telegramLink  String
   instagramLink String
-  createdAt  DateTime @default(now())
+  createdAt     DateTime @default(now())
 }

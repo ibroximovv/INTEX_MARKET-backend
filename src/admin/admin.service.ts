@@ -42,7 +42,7 @@ export class AdminService {
 
   async findAll() {
     try {
-      return await this.prisma.admin.findMany()
+      return await this.prisma.admin.findMany({ omit: { password: true }})
     } catch (error) {
       throw new InternalServerErrorException(error.message || 'Internal server error')
     }
@@ -50,7 +50,7 @@ export class AdminService {
 
   async findOne(id: string) {
     try {
-      const findone = await this.prisma.admin.findFirst({ where: { id } })
+      const findone = await this.prisma.admin.findFirst({ where: { id }, omit: { password: true } })
       if (!findone) throw new BadRequestException('Admin not found')
       return findone
     } catch (error) {
