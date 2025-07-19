@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  username  String
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Products {
+  id              String   @id @default(uuid())
+  Category        Category @relation(fields: [categoryId], references: [id])
+  categoryId      String
+  image           String
+  price           Int
+  quantity        Int
+  Frame           Frame    @relation(fields: [frameId], references: [id])
+  size            String
+  depth           Int
+  frameId         String
+  discountedPrice Int?
+  createdAt       DateTime @default(now())
+  Orders          Orders[]
+}
+
+model Category {
+  id        String     @id @default(uuid())
+  name_en   String     @unique
+  name_uz   String?    @unique
+  name_ru   String?    @unique
+  Products  Products[]
+  createdAt DateTime   @default(now())
+}
+
+model Frame {
+  id        String     @id @default(uuid())
+  name_en   String     @unique
+  name_uz   String?    @unique
+  name_ru   String?    @unique
+  Products  Products[]
+  createdAt DateTime   @default(now())
+}
+
+model WeRecommend {
+  id        String   @id @default(uuid())
+  name_en   String   @unique
+  name_uz   String?  @unique
+  name_ru   String?  @unique
+  createdAt DateTime @default(now())
+}
+
+model Orders {
+  id         String   @id @default(uuid())
+  name       String
+  phone      String
+  adress     String
+  Products   Products @relation(fields: [productsId], references: [id])
+  productsId String
+  check      Boolean? @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model Site {
+  id            String  @id @default(uuid())
+  phone         String
+  adress_en     String
+  adress_uz     String?
+  adress_ru     String?
+  workingHours  String
+  telegramLink  String
+  instagramLink String
+  createdAt  DateTime @default(now())
+}
