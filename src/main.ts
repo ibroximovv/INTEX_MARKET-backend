@@ -6,7 +6,9 @@ import { join } from 'path';
 import * as express from "express";
 
 async function bootstrap() {
+  
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   const config = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')
