@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsIn, IsInt, IsOptional, IsPositive, IsString, IsUUID } from "class-validator";
+import { IsIn, IsInt, IsOptional, IsPositive, IsString } from "class-validator";
 
 export class GetCategoryDto {
     @ApiProperty({ required: false })
@@ -17,7 +17,7 @@ export class GetCategoryDto {
     @IsInt()
     take?: number
 
-    @ApiProperty({ required: false, description: 'name_uz, name_ru, name_en' })
+    @ApiProperty({ required: false, description: 'name, name_uz, name_ru, name_en' })
     @IsOptional()
     @IsString()
     search?: string

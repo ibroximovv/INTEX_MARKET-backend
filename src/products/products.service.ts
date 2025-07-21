@@ -56,7 +56,7 @@ export class ProductsService {
   }
 
   async findAll(query: GetProductsDto) {
-    const { skip = 1, take = 10, search, sortBy, sortOrder = 'asc', categoryId } = query;
+    const { skip = 1, take = 10, search, sortBy, sortOrder = 'asc', categoryId, status } = query;
 
     const whereClause = {
       ...(search && {
@@ -66,7 +66,8 @@ export class ProductsService {
           { frame_ru: { contains: search, mode: 'insensitive' as const } }
         ]
       }),
-      ...(categoryId && { categoryId })
+      ...(categoryId && { categoryId }),
+      ...(status && { status })
     };
 
     try {

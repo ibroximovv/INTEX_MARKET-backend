@@ -11,7 +11,7 @@ export class CategoryService {
   constructor(private readonly prisma: PrismaService) { }
   async create(createCategoryDto: CreateCategoryDto) {
     try {
-      const findone = await this.prisma.category.findFirst({ where: { name_en: createCategoryDto.name_en } })
+      const findone = await this.prisma.category.findFirst({ where: { name: createCategoryDto.name } })
       if (findone) throw new BadRequestException('Category already exists')
       return await this.prisma.category.create({ data: createCategoryDto });
     } catch (error) {
@@ -32,6 +32,7 @@ export class CategoryService {
     const whereClause: any = {
       ...(search && {
         OR: [
+          { name: { contains: search, mode: 'insensitive' as const } },
           { name_en: { contains: search, mode: 'insensitive' as const } },
           { name_ru: { contains: search, mode: 'insensitive' as const } },
           { name_uz: { contains: search, mode: 'insensitive' as const } },

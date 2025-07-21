@@ -21,8 +21,8 @@ model Admin {
 }
 
 model Products {
-  id              String   @id @default(uuid())
-  Category        Category @relation(fields: [categoryId], references: [id])
+  id              String      @id @default(uuid())
+  Category        Category    @relation(fields: [categoryId], references: [id])
   categoryId      String
   image           String
   price           Int
@@ -32,14 +32,23 @@ model Products {
   frame_en        String
   frame_uz        String?
   frame_ru        String?
+  status          StatusENum?
   discountedPrice Int?
-  createdAt       DateTime @default(now())
+  createdAt       DateTime    @default(now())
   Orders          Orders[]
+}
+
+enum StatusENum {
+  OutOfStock
+  Recommend
+  Sale
+  Block
 }
 
 model Category {
   id        String     @id @default(uuid())
-  name_en   String     @unique
+  name      String     @default("")
+  name_en   String?    @unique
   name_uz   String?    @unique
   name_ru   String?    @unique
   Products  Products[]

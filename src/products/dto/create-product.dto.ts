@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsOptional, IsPositive, IsString, IsUUID, } from "class-validator";
+import { StatusENum } from "@prisma/client";
+import { IsEnum, IsInt, IsOptional, IsPositive, IsString, IsUUID, } from "class-validator";
 
 export class CreateProductDto {
     @ApiProperty({ example: '1dc7eb6d-9b0e-4bd3-bc87-b62a9b3c1b7a' })
@@ -48,4 +49,9 @@ export class CreateProductDto {
     @IsString()
     @IsOptional()
     frame_ru?: string
+
+    @ApiProperty({ enum: StatusENum, required:false, enumName: 'StatusENum' })
+    @IsEnum(StatusENum)
+    @IsOptional()
+    status?: StatusENum
 }

@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { StatusENum } from "@prisma/client";
 import { Transform, Type } from "class-transformer";
-import { IsBoolean, IsIn, IsInt, IsOptional, IsPositive, IsString, IsUUID } from "class-validator";
+import { IsBoolean, IsEnum, IsIn, IsInt, IsOptional, IsPositive, IsString, IsUUID } from "class-validator";
 import { UUID } from "crypto";
 
 export class GetProductsDto {
@@ -37,4 +38,9 @@ export class GetProductsDto {
     @IsOptional()
     @IsUUID()
     categoryId?: UUID
+
+    @ApiProperty({ required: false, enum: StatusENum, enumName: 'StatusENum' })
+    @IsOptional()
+    @IsEnum(StatusENum)
+    status?: StatusENum;
 }
