@@ -1,16 +1,18 @@
-import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors, Req } from '@nestjs/common';
+import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors, Req, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { Request } from 'express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import * as fs from 'fs';
+import { AuthorizationGuard } from 'src/authorization/authorization.guard';
 
 const uploadDir = './uploads';
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
+// @UseGuards(AuthorizationGuard)
 @Controller('file')
 export class MulterController {
     @Post('upload')

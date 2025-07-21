@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
+import { AuthorizationGuard } from 'src/authorization/authorization.guard';
 
 @Controller('admin')
 export class AdminController {
@@ -27,11 +28,13 @@ export class AdminController {
     return this.adminService.findOne(id);
   }
 
+  @UseGuards(AuthorizationGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
     return this.adminService.update(id, updateAdminDto);
   }
 
+  @UseGuards(AuthorizationGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.adminService.remove(id);

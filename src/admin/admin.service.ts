@@ -3,10 +3,11 @@ import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AdminService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService, private jwtService: JwtService) { }
   async create(createAdminDto: CreateAdminDto) {
     try {
       const findone = await this.prisma.admin.findFirst({ where: { username: createAdminDto.username } })
@@ -31,7 +32,9 @@ export class AdminService {
       const findone = await this.prisma.admin.findFirst({ where: { username: loginAdminDto.username } })
       if (!findone) throw new BadRequestException('Admin not found')
       const matchPassword = bcrypt.compareSync(loginAdminDto.password, findone.password)
-      return matchPassword
+      if(!matchPassword) throw new BadRequestException('Login or password not provided!')
+      const token = this.jwtService.sign({ id: findone.id }, { expiresIn: '1d' })
+      return { token }
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
