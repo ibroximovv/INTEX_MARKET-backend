@@ -77,3 +77,11 @@ model Site {
   instagramLink String
   createdAt     DateTime @default(now())
 }
+
+model Consultatsiya {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String
+  check     Boolean? @default(false)
+  createdAt DateTime @default(now())
+}

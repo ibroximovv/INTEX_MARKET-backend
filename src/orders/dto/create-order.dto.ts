@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsPhoneNumber, IsString, IsUUID } from "class-validator";
+import { IsBoolean, IsOptional, IsPhoneNumber, IsString, IsUUID } from "class-validator";
 
 export class CreateOrderDto {
     @ApiProperty({ example: 'Kimdir' })
@@ -19,7 +19,8 @@ export class CreateOrderDto {
     @IsUUID()
     productsId: string
 
-    @ApiProperty({ example: false })
+    @ApiProperty({ example: false, required: false })
+    @IsOptional()
     @IsBoolean()
-    check: boolean
+    check?: boolean
 }
