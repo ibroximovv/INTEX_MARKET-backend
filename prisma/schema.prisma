@@ -22,7 +22,7 @@ model Admin {
 
 model Products {
   id              String      @id @default(uuid())
-  Category        Category    @relation(fields: [categoryId], references: [id])
+  Category        Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   categoryId      String
   image           String
   price           Int
@@ -60,7 +60,7 @@ model Orders {
   name       String
   phone      String
   adress     String
-  Products   Products @relation(fields: [productsId], references: [id])
+  Products   Products @relation(fields: [productsId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   productsId String
   check      Boolean? @default(false)
   createdAt  DateTime @default(now())
