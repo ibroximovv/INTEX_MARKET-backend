@@ -60,13 +60,15 @@ export class ProductsService {
   async findAll(query: GetProductsDto) {
     const { skip = 1, take = 10, search, sortBy, sortOrder = 'asc', categoryId, status } = query;
 
+    const isNumeric = !isNaN(Number(search));
+
     const whereClause: any = {
       ...(search && {
         OR: [
           { frame_en: { contains: search, mode: 'insensitive' as const } },
           { frame_uz: { contains: search, mode: 'insensitive' as const } },
           { frame_ru: { contains: search, mode: 'insensitive' as const } },
-          { price: { contains: search, mode: 'insensitive' as const } },
+          ...(isNumeric ? [{ price: Number(search) }] : []),
         ]
       }),
       ...(categoryId && { categoryId }),
