@@ -9,7 +9,7 @@ import { AuthorizationGuard } from 'src/authorization/authorization.guard';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
@@ -25,13 +25,13 @@ export class CategoryController {
     return this.categoryService.findOne(id);
   }
 
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(id, updateCategoryDto);
   }
 
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.categoryService.remove(id);

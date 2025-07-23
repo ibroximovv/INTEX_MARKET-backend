@@ -12,7 +12,7 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
-// @UseGuards(AuthorizationGuard)
+@UseGuards(AuthorizationGuard)
 @Controller('file')
 export class MulterController {
     @Post('upload')

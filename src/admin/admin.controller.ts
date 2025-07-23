@@ -8,6 +8,7 @@ import { AuthorizationGuard } from 'src/authorization/authorization.guard';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
+  @UseGuards(AuthorizationGuard)
   @Post()
   create(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.create(createAdminDto);
@@ -18,11 +19,13 @@ export class AdminController {
     return this.adminService.login(loginAdminDto);
   }
 
+  @UseGuards(AuthorizationGuard)
   @Get()
   findAll() {
     return this.adminService.findAll();
   }
 
+  @UseGuards(AuthorizationGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.adminService.findOne(id);

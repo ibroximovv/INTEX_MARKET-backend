@@ -9,7 +9,7 @@ import { AuthorizationGuard } from 'src/authorization/authorization.guard';
 export class SiteController {
   constructor(private readonly siteService: SiteService) {}
 
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   @Post()
   create(@Body() createSiteDto: CreateSiteDto) {
     return this.siteService.create(createSiteDto);
@@ -25,13 +25,13 @@ export class SiteController {
     return this.siteService.findOne(id);
   }
 
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSiteDto: UpdateSiteDto) {
     return this.siteService.update(id, updateSiteDto);
   }
 
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.siteService.remove(id);
