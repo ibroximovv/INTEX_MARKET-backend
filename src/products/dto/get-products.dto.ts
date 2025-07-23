@@ -19,7 +19,7 @@ export class GetProductsDto {
     @IsInt()
     take?: number
 
-    @ApiProperty({ required: false, description: 'frame_en, frame_ru, frame_uz' })
+    @ApiProperty({ required: false, description: 'frame_en, frame_ru, frame_uz, price' })
     @IsOptional()
     @IsString()
     search?: string
